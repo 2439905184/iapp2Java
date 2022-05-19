@@ -21,7 +21,7 @@ syso(a)
 ```
 编译
 ```
-python compile.py "test.iyu"  "out.java")
+python compile.py "test.iyu"  "out.java"
 ```
 编译后的内容
 ```java
