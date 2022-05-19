@@ -57,6 +57,10 @@ def head_to_java(syntax_data:dict):
         param_data  = function_params[0]
         java_code = "System.out.println(" + param_data + ");"
         return java_code
+    if function_name == "tw":
+        param_data = function_params[0]
+        java_code = "Toast.makeText(this," + param_data + ",Toast.LENGTH_SHORT)"+".show();"
+        return java_code
     else:
         return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
     pass

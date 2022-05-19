@@ -1,3 +1,4 @@
 cls("String", c)
 javax(a,"123456789",c,"indexOf","String","56")
 syso(a)
+tw(a)
