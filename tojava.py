@@ -53,4 +53,10 @@ def head_to_java(syntax_data:dict):
         param_data = function_params[3]
         java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ")"
         return java_code
+    if function_name == "syso":
+        param_data  = function_params[0]
+        java_code = "System.out.println(" + param_data + ");"
+        return java_code
+    else:
+        return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
     pass
