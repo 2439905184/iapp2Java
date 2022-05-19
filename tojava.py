@@ -3,7 +3,7 @@
 def head_to_java(syntax_data:dict):
     function_name = syntax_data['function_name']
     function_params = syntax_data['function_params']
-    
+
     if function_name == "cls":
         params = len(function_params)
         useage = "" #cls的重载方法
@@ -37,5 +37,20 @@ def head_to_java(syntax_data:dict):
         else:
             java_code = class_name +"." + method_str.strip('"') + "(" +param_data + ");" #去除双引号
         #print(java_code)
+        return java_code
+    
+    if function_name == "javanew":
+        return_var = function_params[0]
+        raw_return_var = function_params[1]
+        
+        #处理一下完整类名
+        pre_syntax_type = raw_return_var.split(".")
+        pre_syntax_type_index = len(pre_syntax_type)-1
+        
+        return_var_type = pre_syntax_type[pre_syntax_type_index]
+
+        param_type = function_params[2]
+        param_data = function_params[3]
+        java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ")"
         return java_code
     pass

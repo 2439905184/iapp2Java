@@ -1,6 +1,6 @@
 import re
 #此代码中的regex是正则表达式的意思
-#java(赋值变量, 类, "完整类名和方法名", "参数")
+
 
 #先切割括号，再切割参数
 def split_head(param_str:str):
