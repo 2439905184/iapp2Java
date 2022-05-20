@@ -6,11 +6,11 @@ def main():
     iyu_file_name = sys.argv[1]
     out_file_name = sys.argv[2]
     out_file = open(out_file_name,"w",encoding="utf-8")
-    for line in open(iyu_file_name,"r"):
-        print(line,end="")
+    for line in open(iyu_file_name,"r",encoding="utf-8"):
+        #print(line,end="")
         syntax_data = tokenizer.split_head(line)
         out_line = tojava.head_to_java(syntax_data)
-        print("每行输出:"+str(out_line))
+        print("编译 >>> "+str(out_line))
         out_file.write(str(out_line)+"\n")
     out_file.close()
     pass
