@@ -1,7 +1,6 @@
 import re
 #此代码中的regex是正则表达式的意思
 
-
 #先切割括号，再切割参数
 def split_head(param_str:str):
     regex_QuKuoHao = r"\(|\)"

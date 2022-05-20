@@ -1,21 +1,31 @@
+//反射获取类
 cls("String", c)
+//new对象
 javanew(a, "java.lang.String", "String", "1234")
 javanew(a, "java.lang.StringBuilder", "String", "12345")
+//java方法调用
 java(result, a ,"java.lang.StringBuilder.append", "String", "6789")
-java("null", a ,"java.lang.StringBuilder.append", "String", "6789")
 java(result, a, "java.lang.String.toString")
+//void类型的java方法调用
+java("null", a ,"java.lang.StringBuilder.append", "String", "6789")
+//javax方法调用
 javax(a,"123456789",c,"indexOf","String","56")
+//打印
 syso(a)
 tw(a)
+//Intent
 sit(a,"action","android.intent.action.SEND")
 sit(a,"type","text/plain")
 sit(a,"extra","android.intent.extra.SUBJECT","共享软件")
 sit(a,"extra","android.intent.extra.Text","共享软件")
 sit(b,"flags",268435456)
 uit(a)
+//界面跳转
 uigo("abc.iyu")
+//加载so jar库
 loadso("abc")
 loadjar("test.jar",jar)
+//javags获取java变量值 javass设置java变量值
 cls(jar,"com.sdk.ceshi",c1)
 javanew(obj, c1)
 javags(result, obj , c1 , "b")
