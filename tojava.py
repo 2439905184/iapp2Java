@@ -111,5 +111,15 @@ def head_to_java(syntax_data:dict):
         java_code = "static\n{\n System.loadLibrary(" + param_data + ");\n}"
         return java_code
     
+    #javax(赋值变量, "参数", "第二个实参的类型", "方法名", "方法参数类型", "方法参数")
+    if function_name == "javax":
+        return_var = function_params[0]
+        param_data2 = function_params[1]
+        param_class = function_params[2]
+        param_method = function_params[3].strip('""')
+        param_type = function_params[4] #调用方法的参数类型
+        param = function_params[5]
+        java_code = return_var + " = " + param_class + "." + param_method + "(" + param + ");"
+        return java_code
     else:
         return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
