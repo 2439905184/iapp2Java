@@ -7,7 +7,7 @@ import tojava
 #sit(赋值变量, "方法","属性值")
 #sit对应Intent类 可用方法：setAction(),setType(String type),putExtra(String,CharSequence)
 #uit(Intent类型 sit变量,"chooser","标题")
-
+#javanew(赋值变量, new的类型, 构造参数类型, 构造参数)
 code = 'java(b,a,"android.widget.TextView.setText","CharSequence","我是文本")'
 code2 = 'cls("String",b)'
 code3 = 'javanew(a,"java.lang.StringBuilder" ,"String","12345")'

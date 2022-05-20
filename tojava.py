@@ -51,7 +51,7 @@ def head_to_java(syntax_data:dict):
 
         param_type = function_params[2]
         param_data = function_params[3]
-        java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ")"
+        java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ");"
         return java_code
 
     if function_name == "syso":
@@ -100,13 +100,16 @@ def head_to_java(syntax_data:dict):
         pre_code = "startActivity("
         java_code = pre_code + return_var + ");"
         return java_code
+
     if function_name == "uigo":
         param_data = function_params[0]
         java_code = 'startActivity(new Intent(this,'+ param_data + '));'
         return java_code
+
     if function_name == "loadso":
         param_data = function_params[0]
         java_code = "static\n{\n System.loadLibrary(" + param_data + ");\n}"
         return java_code
+    
     else:
         return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
