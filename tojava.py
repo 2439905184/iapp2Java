@@ -152,8 +152,8 @@ def head_to_java(syntax_data:dict):
         java_code = return_var + " = " + param_class + "." + param_method + "(" + param + ");"
         return java_code
     
-    #访问变量 javags(赋值变量, new的java对象, .前面的类, "变量名")
-    #访问静态变量 javags(赋值变量, null , .前面的类, "变量名")
+    #访问java变量 javags(赋值变量, new的java对象, .前面的类, "变量名")
+    #访问静态java变量 javags(赋值变量, null , .前面的类, "变量名")
     if function_name == "javags":
         return_var = function_params[0]
         param1 = function_params[1]
@@ -172,6 +172,18 @@ def head_to_java(syntax_data:dict):
             syntax1 = return_var + " = "
             syntax2 = param1 + "." + param_var + ";"
             java_code = syntax1 + syntax2
+        return java_code
+    #修改java变量值 javass(赋值变量，new出来的java对象，类，"变量名称"，"变量值")
+    if function_name == "javass":
+        return_var = function_params[0]
+        object_name = function_params[1]
+        class_name = function_params[2]
+        param_var = function_params[3].strip('""')
+        param_var_value = function_params[4]
+        syntax1 = class_name + " " + return_var + " = "
+        syntax2 = object_name + "." + param_var + " = " + str(param_var_value)
+        java_code = syntax1 + syntax2 + ";"
+        print(param_var_value)
         return java_code
     else:
         return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
