@@ -14,15 +14,18 @@ def head_to_java(syntax_data:dict):
         
         if useage == "getClass":
             class_name = function_params[0]
-            return_var = function_params[1]# 下面的代码重构
-            java_code = "Class " + return_var + " = " + "getClass().forName(" + class_name +");"
+            return_var = function_params[1]
+            syntax1 = "Class " + return_var + " = "
+            syntax2 = "getClass().forName(" + class_name +")"
+            java_code =  syntax1 + syntax2 + ";"
+
         elif useage == "getClassFromJar":
             return_var = function_params[2]
             class_name = function_params[1]
             syntax1 = "Class " + return_var + " = "
             syntax2 = "getClass().forName(" + class_name +")"
             java_code = syntax1 + syntax2 + ";"
-            pass
+            
         return java_code
 
     if function_name == "java":
