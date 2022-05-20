@@ -11,7 +11,30 @@
 * git clone https://github.com/2439905184/iapp2Java.git
 * 命令行调用方式 python compile.py "iyu源文件" "输出文件.java")
 * 主程序交互式调用方式 python Main.py
-
+## 编译窗口
+```ps
+PS D:\work\iapp2Java> python .\compile.py "test.iyu" "out.java"
+编译 >>> Class c = getClass().forName("String");
+编译 >>> 暂时不支持的函数,iyu分词码:javax['a', '"123456789"', 'c', '"indexOf"', '"String"', '"56"'];
+编译 >>> System.out.println(a);
+编译 >>> Toast.makeText(this,a,Toast.LENGTH_SHORT).show();
+编译 >>> Intent a = new Intent();
+a.setAction("android.intent.action.SEND");
+编译 >>> Intent a = new Intent();
+a.setType("text/plain");
+编译 >>> Intent a = new Intent();
+a.putExtra("android.intent.extra.SUBJECT","共享软件");
+编译 >>> Intent a = new Intent();
+a.putExtra("android.intent.extra.Text","共享软件");
+编译 >>> Intent b = new Intent();
+b.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+编译 >>> startActivity(a);
+编译 >>> startActivity(new Intent(this,"abc.iyu"));
+编译 >>> static
+{
+ System.loadLibrary("abc");
+}
+```
 ## 例子
 test.iyu源码文件
 ```java
