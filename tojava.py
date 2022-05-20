@@ -14,9 +14,14 @@ def head_to_java(syntax_data:dict):
         
         if useage == "getClass":
             class_name = function_params[0]
-            return_var = function_params[1]
+            return_var = function_params[1]# 下面的代码重构
             java_code = "Class " + return_var + " = " + "getClass().forName(" + class_name +");"
         elif useage == "getClassFromJar":
+            return_var = function_params[2]
+            class_name = function_params[1]
+            syntax1 = "Class " + return_var + " = "
+            syntax2 = "getClass().forName(" + class_name +")"
+            java_code = syntax1 + syntax2 + ";"
             pass
         return java_code
 
@@ -38,20 +43,26 @@ def head_to_java(syntax_data:dict):
             java_code = class_name +"." + method_str.strip('"') + "(" +param_data + ");" #去除双引号
         #print(java_code)
         return java_code
-    
+    #javanew(赋值变量, 类型)
+    #javanew(赋值变量, "完整类名和方法名", "参数类型", "参数")
     if function_name == "javanew":
+        params = len(function_params)
         return_var = function_params[0]
         raw_return_var = function_params[1]
-        
-        #处理一下完整类名
-        pre_syntax_type = raw_return_var.split(".")
-        pre_syntax_type_index = len(pre_syntax_type)-1
-        
-        return_var_type = pre_syntax_type[pre_syntax_type_index]
+        if params == 4:
+            #处理一下完整类名
+            pre_syntax_type = raw_return_var.split(".")
+            pre_syntax_type_index = len(pre_syntax_type)-1
+            
+            return_var_type = pre_syntax_type[pre_syntax_type_index]
 
-        param_type = function_params[2]
-        param_data = function_params[3]
-        java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ");"
+            param_type = function_params[2]
+            param_data = function_params[3]
+            java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ");"
+        if params == 2:
+            syntax1 = return_var + " = new "
+            syntax2 = raw_return_var + "()"
+            java_code = syntax1 + syntax2 + ";"
         return java_code
 
     if function_name == "syso":
@@ -120,6 +131,28 @@ def head_to_java(syntax_data:dict):
         param_type = function_params[4] #调用方法的参数类型
         param = function_params[5]
         java_code = return_var + " = " + param_class + "." + param_method + "(" + param + ");"
+        return java_code
+    
+    #访问变量 javags(赋值变量, new的java对象, .前面的类, "变量名")
+    #访问静态变量 javags(赋值变量, null , .前面的类, "变量名")
+    if function_name == "javags":
+        return_var = function_params[0]
+        param1 = function_params[1]
+        param_class = function_params[2]
+        param_var = function_params[3].strip('""')
+        if param1 != "null":
+            visit_type = "NotStatic"
+        else:
+            visit_type = "Static"
+        
+        if visit_type == "Static":
+            syntax1 = return_var + " = "
+            syntax2 = param_class + "." + param_var + ";"
+            java_code = syntax1 + syntax2
+        if visit_type == "NotStatic":
+            syntax1 = return_var + " = "
+            syntax2 = param1 + "." + param_var + ";"
+            java_code = syntax1 + syntax2
         return java_code
     else:
         return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
