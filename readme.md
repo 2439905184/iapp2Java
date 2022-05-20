@@ -6,6 +6,21 @@
 </li>
 </ol>
 
+## 目前支持的裕语言api
+* cls()
+* java()
+* javanew()
+* syso()
+* tw()
+* sit()
+* uit()
+* uigo()
+* loadso()
+* javax()
+* javags()
+* javass()
+* 其他更多api敬请期待
+
 ## 如何使用
 * 安装python >=3
 * git clone https://github.com/2439905184/iapp2Java.git
