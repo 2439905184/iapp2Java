@@ -1,5 +1,12 @@
 #只转译函数名和函数参数 不转译函数体定义
 import IntentFlags
+#将完整类名和方法名转换为简单方法名
+def to_simpleMethod(full_method:str):
+    syntax1 = full_method.split(".")
+    index = len(syntax1)-1
+    simple_name = syntax1[index]
+    return simple_name
+    pass
 def head_to_java(syntax_data:dict):
     function_name = syntax_data['function_name']
     function_params = syntax_data['function_params']
@@ -25,27 +32,36 @@ def head_to_java(syntax_data:dict):
             syntax1 = "Class " + return_var + " = "
             syntax2 = "getClass().forName(" + class_name +")"
             java_code = syntax1 + syntax2 + ";"
-            
+
         return java_code
 
+    #java(赋值变量, 类, "完整类名和方法名", "参数类型", "参数")
+    #java(赋值变量, 类, "完整类名和方法名")
     if function_name == "java":
+        params = len(function_params)
         return_var = function_params[0]
         class_name = function_params[1]
         method = function_params[2]
-        param_type = function_params[3]
-        param_data = function_params[4]
+        if params == 5:
+            param_type = function_params[3]
+            param_data = function_params[4]
+            if return_var.strip('""') != "null":
+                simple_name = to_simpleMethod(method.strip('"'))
+                syntax1 = return_var + " = " 
+                syntax2 = class_name +"." + simple_name + "(" +param_data + ")"
+                java_code = syntax1 + syntax2 + ";"
+            else:
+                simple_name = to_simpleMethod(method.strip('"'))
+                syntax = class_name + "." + simple_name + "()"
+                java_code = syntax + ";"
 
-        #处理一下完整类名
-        pre_syntax_method = method.split(".")
-        pre_syntax_method_name_index = len(pre_syntax_method)-1
-        
-        method_str = pre_syntax_method[pre_syntax_method_name_index]
-        if return_var != "null":
-            java_code = return_var + " = " + class_name +"." + method_str.strip('"') + "(" +param_data + ");" #去除双引号
-        else:
-            java_code = class_name +"." + method_str.strip('"') + "(" +param_data + ");" #去除双引号
-        #print(java_code)
+        if params == 3:
+            simple_name = to_simpleMethod(method.strip('""'))
+            syntax1 = return_var + " = "
+            syntax2 =  class_name + "." + simple_name +"()"
+            java_code = syntax1 + syntax2 + ";"
         return java_code
+
     #javanew(赋值变量, 类型)
     #javanew(赋值变量, "完整类名和方法名", "参数类型", "参数")
     if function_name == "javanew":
