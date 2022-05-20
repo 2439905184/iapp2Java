@@ -6,7 +6,7 @@ def to_simpleMethod(full_method:str):
     index = len(syntax1)-1
     simple_name = syntax1[index]
     return simple_name
-    pass
+
 def head_to_java(syntax_data:dict):
     function_name = syntax_data['function_name']
     function_params = syntax_data['function_params']
@@ -68,6 +68,11 @@ def head_to_java(syntax_data:dict):
         params = len(function_params)
         return_var = function_params[0]
         raw_return_var = function_params[1]
+        if params == 2:
+            syntax1 = return_var + " = new "
+            syntax2 = raw_return_var + "()"
+            java_code = syntax1 + syntax2 + ";"
+
         if params == 4:
             #处理一下完整类名
             pre_syntax_type = raw_return_var.split(".")
@@ -78,11 +83,19 @@ def head_to_java(syntax_data:dict):
             param_type = function_params[2]
             param_data = function_params[3]
             java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ");"
-        if params == 2:
-            syntax1 = return_var + " = new "
-            syntax2 = raw_return_var + "()"
-            java_code = syntax1 + syntax2 + ";"
-        return java_code
+        if params > 4:
+            syntax_class = raw_return_var.strip('""')
+            syntax_var = syntax_class + " " + return_var + " = "
+            names = []
+            #单数索引为实参
+            for index,name in enumerate(function_params):
+                if index %2 == 1 and index !=1:
+                    #print(name)
+                    names.append(name)
+            syntax_body = "new " + to_simpleMethod(syntax_class) + "(" + ','.join(names) + ")"
+            java_code = syntax_var  + syntax_body + ";"
+            print(java_code)
+            return java_code
 
     if function_name == "syso":
         param_data  = function_params[0]
@@ -94,6 +107,8 @@ def head_to_java(syntax_data:dict):
         java_code = "Toast.makeText(this," + param_data + ",Toast.LENGTH_SHORT)"+".show();"
         return java_code
 
+    #sit(赋值变量, "方法","属性值")
+    #sit对应Intent类 可用方法：setAction(),setType(String type),putExtra(String,CharSequence)
     if function_name == "sit":
         return_var = function_params[0]
         prop_flag = function_params[1].strip('""')
@@ -102,6 +117,8 @@ def head_to_java(syntax_data:dict):
         pre_code = "Intent " + return_var + " = new Intent();\n"
         if len(function_params) == 4:
             param_data2 = function_params[3]
+            #java_code = "判断长度为4" + ";"
+
         if prop_flag == "action":
             param_flag = "setAction"
             pre_code1 = return_var + "." + param_flag + "(" + param_data +");"
@@ -116,6 +133,13 @@ def head_to_java(syntax_data:dict):
             param_flag = "putExtra"
             pre_code1 = return_var + "." + param_flag + "(" + param_data + "," + param_data2 + ");"
             java_code = pre_code + pre_code1
+        
+        if prop_flag == "classname":
+            param_flag = "setClassName"
+            syntax_class = "Intent"
+            syntax_var = syntax_class + " " + return_var + " = "
+            syntax_body = return_var + "." +  param_flag + "(" + param_data + "," + param_data2 + ")"
+            java_code = syntax_var  + syntax_body+ ";"
 
         if prop_flag == "flags":
             param_flag = "setFlags"
