@@ -95,5 +95,10 @@ def head_to_java(syntax_data:dict):
                 pre_code1 = return_var + "." + param_flag + "(" + param_data + ");"
             java_code = pre_code + pre_code1
         return java_code
+    if function_name == "uit":#chooser的情况没加上 startActivityForResult()
+        return_var = function_params[0]
+        pre_code = "startActivity("
+        java_code = pre_code + return_var + ");"
+        return java_code
     else:
         return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
