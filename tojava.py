@@ -1,5 +1,5 @@
 #只转译函数名和函数参数 不转译函数体定义
-
+import IntentFlags
 def head_to_java(syntax_data:dict):
     function_name = syntax_data['function_name']
     function_params = syntax_data['function_params']
@@ -53,14 +53,47 @@ def head_to_java(syntax_data:dict):
         param_data = function_params[3]
         java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ")"
         return java_code
+
     if function_name == "syso":
         param_data  = function_params[0]
         java_code = "System.out.println(" + param_data + ");"
         return java_code
+
     if function_name == "tw":
         param_data = function_params[0]
         java_code = "Toast.makeText(this," + param_data + ",Toast.LENGTH_SHORT)"+".show();"
         return java_code
+
+    if function_name == "sit":
+        return_var = function_params[0]
+        prop_flag = function_params[1].strip('""')
+        param_data = function_params[2]
+
+        pre_code = "Intent " + return_var + " = new Intent();\n"
+        if len(function_params) == 4:
+            param_data2 = function_params[3]
+        if prop_flag == "action":
+            param_flag = "setAction"
+            pre_code1 = return_var + "." + param_flag + "(" + param_data +");"
+            java_code = pre_code + pre_code1
+
+        if prop_flag == "type":
+            param_flag = "setType"
+            pre_code1 = return_var + "." + param_flag + "(" + param_data + ");"
+            java_code = pre_code + pre_code1
+
+        if prop_flag == "extra":
+            param_flag = "putExtra"
+            pre_code1 = return_var + "." + param_flag + "(" + param_data + "," + param_data2 + ");"
+            java_code = pre_code + pre_code1
+
+        if prop_flag == "flags":
+            param_flag = "setFlags"
+            if int(param_data) == IntentFlags.FLAG_ACTIVITY_NEW_TASK:
+                pre_code1 = return_var + "." + param_flag + "(Intent.FLAG_ACTIVITY_NEW_TASK);"
+            else:
+                pre_code1 = return_var + "." + param_flag + "(" + param_data + ");"
+            java_code = pre_code + pre_code1
+        return java_code
     else:
         return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
-    pass

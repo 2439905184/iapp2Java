@@ -4,6 +4,9 @@ import tojava
 #java(赋值变量, 类, "完整类名和方法名", "参数类型", "参数")
 #javanew(赋值变量, "完整类名和方法名", "参数类型", "参数")
 #javax(赋值变量, "参数", "第二个实参的类型", "方法名", "方法参数类型", "方法参数")
+#sit(赋值变量, "方法","属性值")
+#sit对应Intent类 可用方法：setAction(),setType(String type),putExtra(String,CharSequence)
+#uit(Intent类型 sit变量,"chooser","标题")
 
 code = 'java(b,a,"android.widget.TextView.setText","CharSequence","我是文本")'
 code2 = 'cls("String",b)'
