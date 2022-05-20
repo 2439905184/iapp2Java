@@ -104,5 +104,9 @@ def head_to_java(syntax_data:dict):
         param_data = function_params[0]
         java_code = 'startActivity(new Intent(this,'+ param_data + '));'
         return java_code
+    if function_name == "loadso":
+        param_data = function_params[0]
+        java_code = "static\n{\n System.loadLibrary(" + param_data + ");\n}"
+        return java_code
     else:
         return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
