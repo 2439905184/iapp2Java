@@ -35,31 +35,44 @@ def head_to_java(syntax_data:dict):
 
         return java_code
 
-    #java(赋值变量, 类, "完整类名和方法名", "参数类型", "参数")
     #java(赋值变量, 类, "完整类名和方法名")
+    #java(赋值变量, 类, "完整类名和方法名", "参数类型", "参数")
     if function_name == "java":
         params = len(function_params)
         return_var = function_params[0]
         class_name = function_params[1]
         method = function_params[2]
-        if params == 5:
-            param_type = function_params[3]
-            param_data = function_params[4]
-            if return_var.strip('""') != "null":
-                simple_name = to_simpleMethod(method.strip('"'))
-                syntax1 = return_var + " = " 
-                syntax2 = class_name +"." + simple_name + "(" +param_data + ")"
-                java_code = syntax1 + syntax2 + ";"
-            else:
-                simple_name = to_simpleMethod(method.strip('"'))
-                syntax = class_name + "." + simple_name + "()"
-                java_code = syntax + ";"
-
         if params == 3:
             simple_name = to_simpleMethod(method.strip('""'))
             syntax1 = return_var + " = "
             syntax2 =  class_name + "." + simple_name +"()"
             java_code = syntax1 + syntax2 + ";"
+
+        if params == 5:
+            param_type = function_params[3]
+            param_data = function_params[4]
+            if return_var.strip('""') != "null":
+                simple_name = to_simpleMethod(method.strip('"'))
+                syntax_class = class_name
+                syntax_var = class_name + " " + return_var + " = " 
+                syntax_body = class_name + "." + simple_name + "(" + param_data +")"
+                java_code = syntax_var + syntax_body + ";"
+            else:
+                simple_name = to_simpleMethod(method.strip('"'))
+                syntax = class_name + "." + simple_name + "()"
+                java_code = syntax + ";"
+        # if params > 5:
+        #     syntax_class = to_simpleMethod(param_type.strip('""'))
+        #     syntax_var = syntax_class + " " + return_var + " = "
+        #     names = []
+        #     #单数索引为实参
+        #     for index,name in enumerate(function_params):
+        #         if index %2 == 1 and index !=1:
+        #             #print(name)
+        #             names.append(name)
+        #     #syntax_body = "new " + to_simpleMethod(syntax_class) + "(" + ','.join(names) + ")"
+        #     java_code = "aaaa"
+        #     #print(java_code)
         return java_code
 
     #javanew(赋值变量, 类型)
@@ -84,7 +97,7 @@ def head_to_java(syntax_data:dict):
             param_data = function_params[3]
             java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ");"
         if params > 4:
-            syntax_class = raw_return_var.strip('""')
+            syntax_class = to_simpleMethod(raw_return_var.strip('""'))
             syntax_var = syntax_class + " " + return_var + " = "
             names = []
             #单数索引为实参
@@ -94,7 +107,7 @@ def head_to_java(syntax_data:dict):
                     names.append(name)
             syntax_body = "new " + to_simpleMethod(syntax_class) + "(" + ','.join(names) + ")"
             java_code = syntax_var  + syntax_body + ";"
-            print(java_code)
+            #print(java_code)
             return java_code
 
     if function_name == "syso":
