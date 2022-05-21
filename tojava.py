@@ -22,7 +22,7 @@ def head_to_java(syntax_data:dict):
 
     if function_name == "cls":
         params = len(function_params)
-        useage = "" #cls的重载方法
+        useage = ""
         if params == 2:
             useage = "getClass"
         elif params == 3:
@@ -109,7 +109,7 @@ def head_to_java(syntax_data:dict):
             names = get_real_params(function_params)
             syntax_body = "new " + to_simpleMethod(syntax_class) + "(" + ','.join(names) + ")"
             java_code = syntax_var  + syntax_body + ";"
-            
+
         return java_code
 
     if function_name == "syso":
