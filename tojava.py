@@ -15,6 +15,14 @@ def get_real_params(tokenzier_params):
             #print(name)
             real_params.append(name)
     return real_params
+#从三开始的偶数为实参 当出现多个参数时，取实参操作
+def get_oushu_real_params(tokenzier_params):
+    real_params = []
+    for index,name in enumerate(tokenzier_params):
+        if index %2 == 0 and index !=0 and index !=2:
+            #print(name)
+            real_params.append(name)
+    return real_params
 
 def head_to_java(syntax_data:dict):
     function_name = syntax_data['function_name']
@@ -70,18 +78,13 @@ def head_to_java(syntax_data:dict):
                 simple_name = to_simpleMethod(method.strip('"'))
                 syntax = class_name + "." + simple_name + "()"
                 java_code = syntax + ";"
-        # if params > 5:
-        #     syntax_class = to_simpleMethod(param_type.strip('""'))
-        #     syntax_var = syntax_class + " " + return_var + " = "
-        #     names = []
-        #     #单数索引为实参
-        #     for index,name in enumerate(function_params):
-        #         if index %2 == 1 and index !=1:
-        #             #print(name)
-        #             names.append(name)
-        #     #syntax_body = "new " + to_simpleMethod(syntax_class) + "(" + ','.join(names) + ")"
-        #     java_code = "aaaa"
-        #     #print(java_code)
+
+        if params > 5:
+            syntax_var = class_name  + " " + return_var + " = "
+            syntax_method = class_name + "." + to_simpleMethod(method.strip('""'))
+            names = get_oushu_real_params(function_params)
+            syntax_body = "(" + ','.join(names) + ")"
+            java_code = syntax_var + syntax_method + syntax_body + ";"
         return java_code
 
     #javanew(赋值变量, 类型)

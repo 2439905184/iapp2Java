@@ -1,0 +1,2 @@
+cls("String", StringObj)
+java(result,StringObj,"java.lang.StringBuilder.append", "String", "6789","String","123","int",12345)
