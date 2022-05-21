@@ -87,15 +87,12 @@ def head_to_java(syntax_data:dict):
             java_code = syntax1 + syntax2 + ";"
 
         if params == 4:
-            #处理一下完整类名
-            pre_syntax_type = raw_return_var.split(".")
-            pre_syntax_type_index = len(pre_syntax_type)-1
-            
-            return_var_type = pre_syntax_type[pre_syntax_type_index]
-
             param_type = function_params[2]
             param_data = function_params[3]
-            java_code = return_var_type.strip('""') + " " + return_var + " = new " + return_var_type.strip('""') + "(" + param_data + ");"
+            class_name = to_simpleMethod(raw_return_var.strip('""'))
+            syntax_var = class_name + " " + return_var + " = "
+            syntax_body = "new " + class_name + "(" + param_data + ")"
+            java_code = syntax_var + syntax_body + ";"
         if params > 4:
             syntax_class = to_simpleMethod(raw_return_var.strip('""'))
             syntax_var = syntax_class + " " + return_var + " = "
@@ -108,7 +105,7 @@ def head_to_java(syntax_data:dict):
             syntax_body = "new " + to_simpleMethod(syntax_class) + "(" + ','.join(names) + ")"
             java_code = syntax_var  + syntax_body + ";"
             #print(java_code)
-            return java_code
+        return java_code
 
     if function_name == "syso":
         param_data  = function_params[0]

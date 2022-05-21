@@ -1,7 +1,7 @@
 //反射获取类
 cls("String", c)
 //new对象
-javanew(a, "java.lang.String", "String", "1234")
+javanew(a,"java.lang.String","String","1234")
 javanew(a, "java.lang.StringBuilder", "String", "12345")
 //java方法调用
 java(result, a ,"java.lang.StringBuilder.append", "String", "6789")
