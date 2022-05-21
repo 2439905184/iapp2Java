@@ -167,6 +167,7 @@ def head_to_java(syntax_data:dict):
                 pre_code1 = return_var + "." + param_flag + "(" + param_data + ");"
             java_code = pre_code + pre_code1
         return java_code
+
     if function_name == "uit":#chooser的情况没加上 startActivityForResult()
         return_var = function_params[0]
         pre_code = "startActivity("
@@ -215,6 +216,7 @@ def head_to_java(syntax_data:dict):
             syntax2 = param1 + "." + param_var + ";"
             java_code = syntax1 + syntax2
         return java_code
+        
     #修改java变量值 javass(赋值变量，new出来的java对象，类，"变量名称"，"变量值")
     if function_name == "javass":
         return_var = function_params[0]
