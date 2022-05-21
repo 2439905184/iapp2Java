@@ -7,6 +7,15 @@ def to_simpleMethod(full_method:str):
     simple_name = syntax1[index]
     return simple_name
 
+#从三开始的奇数为实参 当出现多个参数时，取实参操作
+def get_real_params(tokenzier_params):
+    real_params = []
+    for index,name in enumerate(tokenzier_params):
+        if index %2 == 1 and index !=1:
+            #print(name)
+            real_params.append(name)
+    return real_params
+
 def head_to_java(syntax_data:dict):
     function_name = syntax_data['function_name']
     function_params = syntax_data['function_params']
@@ -93,18 +102,14 @@ def head_to_java(syntax_data:dict):
             syntax_var = class_name + " " + return_var + " = "
             syntax_body = "new " + class_name + "(" + param_data + ")"
             java_code = syntax_var + syntax_body + ";"
+
         if params > 4:
             syntax_class = to_simpleMethod(raw_return_var.strip('""'))
             syntax_var = syntax_class + " " + return_var + " = "
-            names = []
-            #单数索引为实参
-            for index,name in enumerate(function_params):
-                if index %2 == 1 and index !=1:
-                    #print(name)
-                    names.append(name)
+            names = get_real_params(function_params)
             syntax_body = "new " + to_simpleMethod(syntax_class) + "(" + ','.join(names) + ")"
             java_code = syntax_var  + syntax_body + ";"
-            #print(java_code)
+            
         return java_code
 
     if function_name == "syso":
