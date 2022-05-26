@@ -74,6 +74,9 @@ System.out.println(a);
 <li>pyinstaller -F compile.py -p tokenizer.py -p tojava.py 或者使用build.cmd编译成exe
 </ol>
 
+## 关于预构建的exe版本
+默认只有64位的版本，32位的版本请自行编译，或者使用源码解释运行
+
 ## 如何二次开发
 * 如果要支持更多的裕语言函数调用转译，请修改tojava.py文件，添加新的处理代码
 * tokenizer.py是进行编译前的词法分析器（目前仅支持函数头的分词处理 如: a(1,2,3,4)  )
