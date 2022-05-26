@@ -1,0 +1,16 @@
+name: test
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checktout@v3
+      - name: set up python 3.8
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+      - name: test
+        run: ./compile.sh
