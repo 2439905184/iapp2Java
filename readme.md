@@ -1,4 +1,4 @@
-## iapp2java 裕语言转java编译器
+## iapp2java 裕语言转java编译器[![test](https://github.com/2439905184/iapp2Java/actions/workflows/test.yml/badge.svg)](https://github.com/2439905184/iapp2Java/actions/workflows/test.yml)
 可以将裕语言编译成java代码，方便开发者学习编程
 ## 亮点
 <ol>
@@ -68,6 +68,11 @@ Class c = getClass().forName("String");
 System.out.println(a);
 
 ```
+## 如何编译
+<ol>
+<li>pip install pyinstaller</li>
+<li>pyinstaller -F compile.py -p tokenizer.py -p tojava.py 或者使用build.cmd编译成exe
+</ol>
 
 ## 如何二次开发
 * 如果要支持更多的裕语言函数调用转译，请修改tojava.py文件，添加新的处理代码
