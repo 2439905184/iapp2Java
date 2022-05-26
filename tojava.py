@@ -1,5 +1,6 @@
 #只转译函数名和函数参数 不转译函数体定义
 import IntentFlags
+import func_fr
 #将完整类名和方法名转换为简单方法名
 def to_simpleMethod(full_method:str):
     syntax1 = full_method.split(".")
@@ -228,6 +229,28 @@ def head_to_java(syntax_data:dict):
         syntax2 = object_name + "." + param_var + " = " + str(param_var_value)
         java_code = syntax1 + syntax2 + ";"
         print(param_var_value)
+        return java_code
+    #fr
+    if function_name == "fr":
+        params = len(function_params)
+        if params == 2:
+            #todo
+            pass
+        if params == 3:
+            return_var = function_params[2]
+            file = function_params[0]
+            encode = function_params[1]
+            syntax1 = return_var + " = "
+            java_code = "//暂缓支持的代码，请自行替换对应参数" + func_fr.code
+            return java_code
+    #file delete 删除文件
+    if function_name == "fd":
+        return_var = function_params[1]
+        file = function_params[0]
+        syntax_var = "boolean " + return_var + " = "
+        syntax_file = "File file = new File(" + file + ");\n"
+        syntax_file_del = syntax_file + "file.delete();"
+        java_code = "//请把%号自行转换成绝对路径（安卓）"+ syntax_file_del
         return java_code
     else:
         return "暂时不支持的函数,iyu分词码:"+ str(function_name) + str(function_params) + ";"
