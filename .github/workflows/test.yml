@@ -13,4 +13,6 @@ jobs:
         with:
           python-version: '3.8'
       - name: test
-        run: sudo ./compile.sh
+        run: |
+          ls
+          sudo ./compile.sh
