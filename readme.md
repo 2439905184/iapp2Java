@@ -24,8 +24,22 @@
 ## 如何使用
 * 安装python >=3
 * git clone https://github.com/2439905184/iapp2Java.git
-* 命令行调用方式 python compile.py "iyu源文件" "输出文件.java")
-* 主程序交互式调用方式 python Main.py
+* [源码解释运行](#源码解释运行需要python38)
+* [pyz应用程序](#pyz应用程序需要安装python38)
+* [exe运行](#源码解释运行需要python38)
+## 源码解释运行(需要python3.8)
+```
+python compile.py "xxx.iyu" "xxx.java"
+```
+## pyz应用程序（需要安装Python3.8) 
+请到release里下载compile.zip
+```
+python compile.zip "xxx.iyu" "xxx.java"
+```
+## exe运行 (不需要python)
+```
+compile.exe "xxx.iyu" "xxx.java"
+```
 ## 编译窗口
 ```ps
 PS D:\work\iapp2Java> python .\compile.py "test.iyu" "out.java"
